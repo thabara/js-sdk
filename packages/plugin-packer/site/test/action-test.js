@@ -15,7 +15,7 @@ const {
   uploadPlugin,
   reset,
   createPluginZip,
-} = require("../action");
+} = require("../src/action");
 
 describe("action", () => {
   let dispatch;

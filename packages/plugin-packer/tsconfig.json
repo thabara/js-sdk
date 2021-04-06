@@ -2,10 +2,10 @@
   "extends": "../tsconfig-base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist",
+    "outDir": "lib",
     "resolveJsonModule": true
   },
-  "exclude": ["site/**", "test/**", "dist/**"],
+  "exclude": ["site/**", "test/**", "lib/**"],
   "references": [
     { "path": "../plugin-manifest-validator" }
   ]

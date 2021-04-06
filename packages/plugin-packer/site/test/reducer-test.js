@@ -4,7 +4,7 @@ const {
   reducer,
   getDownloadPluginZipName,
   getDownloadPPKFileName,
-} = require("../reducer");
+} = require("../src/reducer");
 const {
   UPLOAD_FAILURE,
   UPLOAD_PPK_START,
@@ -15,7 +15,7 @@ const {
   CREATE_PLUGIN_ZIP,
   CREATE_PLUGIN_ZIP_FAILURE,
   RESET,
-} = require("../action");
+} = require("../src/action");
 
 const expectedInitialState = {
   contents: {

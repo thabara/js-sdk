@@ -6,22 +6,22 @@
   "engines": {
     "node": ">=10"
   },
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "bin": {
     "kintone-plugin-packer": "bin/cli.js"
   },
-  "types": "dist/index.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
     "bin",
-    "dist",
+    "lib",
     "from-manifest.js"
   ],
   "scripts": {
     "prebuild": "yarn clean",
     "build": "tsc --build --force",
     "build:dev": "tsc --build --force --watch",
-    "postbuild": "run-p js css",
-    "clean": "rimraf dist",
+    "postbuild": "run-p site:js site:css",
+    "clean": "rimraf lib",
     "lint": "eslint \"*.{js,ts}\" bin src site test",
     "test": "run-p jest site:test",
     "test:ci": "yarn test",

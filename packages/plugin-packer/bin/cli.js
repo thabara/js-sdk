@@ -3,7 +3,7 @@
 "use strict";
 
 const meow = require("meow");
-const packer = require("../dist/cli");
+const packer = require("../lib/cli");
 
 const USAGE = "$ kintone-plugin-packer [options] PLUGIN_DIR";
 
