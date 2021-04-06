@@ -7,7 +7,11 @@
     "node": ">=10"
   },
   "main": "lib/index.js",
-  "browser": "dist/index.js",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.cjs"
+  },
   "bin": {
     "kintone-plugin-packer": "bin/cli.js"
   },
@@ -23,8 +27,11 @@
     "build": "run-p build:lib build:browser",
     "build:lib": "tsc --build --force",
     "build:lib:dev": "tsc --build --force --watch",
-    "build:browser": "webpack --mode=production",
-    "build:browser:dev": "webpack serve --mode=development",
+    "build:browser": "run-s build:webpack build:rollup",
+    "build:webpack": "webpack --mode=production",
+    "build:webpack:dev": "webpack serve --mode=development",
+    "build:rollup": "rollup -c",
+    "build:rollup:dev": "rollup -c -w",
     "postbuild": "run-p site:js site:css",
     "clean": "rimraf lib dist",
     "lint": "eslint \"*.{js,ts}\" bin src site test",
@@ -52,6 +59,7 @@
     "yazl": "^2.5.1"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
     "@types/debug": "^4.1.5",
     "@types/stream-buffers": "^3.0.3",
     "@types/yauzl": "^2.9.1",
@@ -77,6 +85,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "rimraf": "^3.0.2",
+    "rollup": "^2.44.0",
     "setimmediate": "^1.0.5",
     "stream-browserify": "^3.0.0",
     "ts-loader": "^8.1.0",

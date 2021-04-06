@@ -8,10 +8,10 @@ const config = {
   entry: "./src/index.ts",
   output: {
     path: path.join(__dirname, "dist"),
-    filename: "index.js",
+    filename: "index.cjs",
     library: {
       name: '@kintone/plugin-packer',
-      type: 'umd',
+      type: 'commonjs2',
     },
   },
   devServer: {
