@@ -19,20 +19,20 @@
   "scripts": {
     "prebuild": "yarn clean",
     "build": "tsc --build --force",
+    "build:dev": "tsc --build --force --watch",
     "postbuild": "run-p js css",
     "clean": "rimraf dist",
     "lint": "eslint \"*.{js,ts}\" bin src site test",
     "test": "run-p jest site:test",
     "test:ci": "yarn test",
-    "build:dev": "tsc --build --force --watch",
-    "css": "postcss --config postcss.config.js ../../node_modules/normalize.css/normalize.css > docs/dist/normalize.min.css",
-    "js": "webpack --mode production",
-    "js:dev": "webpack serve --mode development",
     "jest": "jest",
     "site": "run-p js css",
     "site:dev": "run-p css js:dev",
     "site:test": "jest --config site/jest.config.js",
-    "start": "npm-run-all -l -s clean build -p build:dev site:dev"
+    "site:css": "postcss --config ./site/postcss.config.js ../../node_modules/normalize.css/normalize.css > docs/dist/normalize.min.css",
+    "site:js": "webpack --mode production --config ./site/webpack.config.js",
+    "site:js:dev": "webpack serve --mode development --config ./site/webpack.config.js",
+    "site:start": "npm-run-all -l -s clean build -p build:dev site:dev"
   },
   "dependencies": {
     "@kintone/plugin-manifest-validator": "^5.0.1",

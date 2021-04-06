@@ -4,13 +4,13 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./site/index.js",
+  entry: path.join(__dirname, "src", "index.js"),
   output: {
-    path: path.resolve(__dirname, "docs", "dist"),
+    path: path.resolve(__dirname, "..", "docs", "dist"),
     filename: "bundle.js",
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "docs"),
+    contentBase: path.resolve(__dirname, "..", "docs"),
     publicPath: "/dist/",
     watchContentBase: true,
     open: true,
