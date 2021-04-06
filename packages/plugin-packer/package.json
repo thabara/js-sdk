@@ -18,10 +18,13 @@
   ],
   "scripts": {
     "prebuild": "yarn clean",
-    "build": "tsc --build --force",
-    "build:dev": "tsc --build --force --watch",
+    "build": "run-p build:lib build:browser",
+    "build:lib": "tsc --build --force",
+    "build:lib:dev": "tsc --build --force --watch",
+    "build:browser": "webpack --mode=production",
+    "build:browser:dev": "webpack serve --mode=development",
     "postbuild": "run-p site:js site:css",
-    "clean": "rimraf lib",
+    "clean": "rimraf lib dist",
     "lint": "eslint \"*.{js,ts}\" bin src site test",
     "test": "run-p jest site:test",
     "test:ci": "yarn test",
@@ -74,10 +77,12 @@
     "rimraf": "^3.0.2",
     "setimmediate": "^1.0.5",
     "stream-browserify": "^3.0.0",
+    "ts-loader": "^8.1.0",
     "util": "^0.12.3",
     "webpack": "^5.28.0",
     "webpack-cli": "4.5.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
   },
   "homepage": "https://github.com/kintone/js-sdk/tree/master/packages/plugin-packer",
   "repository": {
