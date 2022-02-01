@@ -1,14 +1,15 @@
-import type Ajv from "ajv";
+import type { ErrorObject } from "ajv";
+import type { EnumError } from "ajv/dist/vocabularies/validation/enum";
 
-export const generateErrorMessages = (errors: Ajv.ErrorObject[]): string[] => {
+export const generateErrorMessages = (errors: ErrorObject[]): string[] => {
   return errors.map((e) => {
     if (e.keyword === "enum") {
-      return `"${e.dataPath}" ${e.message} (${(
-        e.params as Ajv.EnumParams
-      ).allowedValues
+      return `"${e.instancePath}" ${e.message} (${(
+        e as EnumError
+      ).params.allowedValues
         .map((v) => `"${v}"`)
         .join(", ")})`;
     }
-    return `"${e.dataPath}" ${e.message}`;
+    return `"${e.instancePath}" ${e.message}`;
   });
 };
