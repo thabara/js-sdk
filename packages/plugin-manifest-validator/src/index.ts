@@ -1,6 +1,6 @@
 "use strict";
 
-import Ajv, { ErrorObject } from "ajv";
+import Ajv, { ErrorObject, SchemaValidateFunction } from "ajv";
 import bytes from "bytes";
 import jsonSchema from "../manifest-schema.json";
 import validateUrl from "./validate-https-url";
@@ -9,13 +9,6 @@ type ValidateResult = {
   valid: boolean | PromiseLike<any>;
   errors: null | ErrorObject[];
 };
-
-// https://ajv.js.org/docs/keywords.html#define-keyword-with-validation-function
-// FIXME: use the type definition that Ajv provides if https://github.com/ajv-validator/ajv/pull/1460 has been merged
-interface SchemaValidateFunction {
-  (schema: string, data: string): boolean;
-  errors?: Array<Partial<ErrorObject>>;
-}
 
 /**
  * @param {Object} json
