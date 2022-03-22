@@ -5,6 +5,7 @@ import path from "path";
 
 import * as canUploadFiles from "./fixtures/can_upload_files";
 import * as canUploadFilesInSubtable from "./fixtures/can_upload_files_in_subtable";
+import * as canUpdateRecords from "./fixtures/can_update_records";
 
 describe("import", () => {
   let apiClient: KintoneRestAPIClient;
@@ -169,5 +170,40 @@ describe("import", () => {
     return expect(
       uploadRecords({ apiClient, attachmentsDir: "", app: "1", records: [{}] })
     ).rejects.toThrow(error);
+  });
+
+  it("should update record with recordNumber correctly", async () => {
+    apiClient.app.getFormFields = jest
+      .fn()
+      .mockResolvedValue({ properties: canUpdateRecords.properties });
+
+    const updateRecordsMockFn = jest.fn().mockResolvedValue({
+      records: [
+        {
+          id: "1",
+          revision: "2",
+        },
+        {
+          id: "2",
+          revision: "2",
+        },
+      ],
+    });
+    apiClient.record.updateRecords = updateRecordsMockFn;
+
+    const addRecordsMockFn = jest.fn().mockResolvedValue({});
+    apiClient.record.addRecords = addRecordsMockFn;
+
+    const APP_ID = "1";
+    await uploadRecords({
+      apiClient,
+      app: APP_ID,
+      records: canUpdateRecords.input,
+    });
+
+    expect(updateRecordsMockFn).toBeCalledWith(
+      canUpdateRecords.expectedParamsOfUpdateRecords
+    );
+    expect(addRecordsMockFn).not.toHaveBeenCalled();
   });
 });
