@@ -3,6 +3,7 @@ import { KintoneFormFieldProperty } from "@kintone/rest-api-client";
 export const importSupportedFieldTypes: Array<
   KintoneFormFieldProperty.OneOf["type"]
 > = [
+  "RECORD_NUMBER",
   "SINGLE_LINE_TEXT",
   "RADIO_BUTTON",
   "MULTI_LINE_TEXT",

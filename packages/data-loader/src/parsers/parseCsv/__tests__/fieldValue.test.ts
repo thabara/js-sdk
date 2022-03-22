@@ -7,8 +7,8 @@ const patterns: Array<{
   expected: FieldsForImport.OneOf;
 }> = [
   {
-    input: { type: "RECORD_NUMBER", value: "unsupported" },
-    expected: { value: "unsupported" },
+    input: { type: "RECORD_NUMBER", value: "APP-1" },
+    expected: { value: "APP-1" },
   },
   {
     input: { type: "CREATOR", value: "creator" },

@@ -10,6 +10,7 @@ export const convertFieldValue = ({
   value: string;
 }): FieldsForImport.OneOf => {
   switch (type) {
+    case "RECORD_NUMBER":
     case "SINGLE_LINE_TEXT":
     case "RADIO_BUTTON":
     case "MULTI_LINE_TEXT":
