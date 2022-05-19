@@ -25,6 +25,12 @@ declare const location:
     }
   | undefined;
 
+declare class Blob {
+  constructor(array: unknown[]);
+}
+
+declare type BlobPart = unknown;
+
 declare const PACKAGE_VERSION: string;
 
 // see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/24419
