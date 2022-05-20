@@ -15,7 +15,7 @@ interface BasicAuth {
 }
 
 const launchBrowser = (proxy: string | null): Promise<Browser> => {
-  const args = proxy ? [`--proxy-server=${proxy}`, '--no-sandbox'] : ['--no-sandbox'];
+  const args = proxy ? [`--proxy-server=${proxy}`, `--no-sandbox`] : [`--no-sandbox`];
   return puppeteer.launch({ args });
 };
 
