@@ -37,18 +37,10 @@ const readyForUpload = async (
   }
 
   console.log(`Open ${loginUrl}`);
-  
-  try {
-    await page.goto(loginUrl);
-  } catch (e) {
-    throw chalk.red("Error_cannotGotoPage");
-  }
-  
-  console.log(`Page1 ${page}`);
+  await page.goto(loginUrl);
   
   try {
     await page.waitForSelector(".form-username-slash", { timeout: TIMEOUT_MS });
-    console.log(`Page2 ${page}`);
   } catch (e) {
     throw chalk.red(m("Error_cannotOpenLogin"));
   }
@@ -67,13 +59,21 @@ const readyForUpload = async (
 
   const pluginUrl = `${baseUrl}/k/admin/system/plugin/`;
   console.log(`Navigate to ${pluginUrl}`);
-  await page.goto(pluginUrl);
+  try {
+    await page.goto(pluginUrl);
+  } catch (e) {
+    console.log(`Error_cannotOpenpluginPage`);
+    throw chalk.red("Error_cannotOpenpluginPage");
+  }
+  
+  console.log(`Page: ${page}`);
 
   try {
     await page.waitForSelector("#page-admin-system-plugin-index-addplugin", {
       timeout: TIMEOUT_MS,
     });
   } catch (e) {
+    console.log(m("Error_adminPrivilege"));
     throw chalk.red(m("Error_adminPrivilege"));
   }
   return page;
