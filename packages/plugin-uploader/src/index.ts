@@ -37,7 +37,12 @@ const readyForUpload = async (
   }
 
   console.log(`Open ${loginUrl}`);
-  await page.goto(loginUrl);
+  
+  try {
+    await page.goto(loginUrl);
+  } catch (e) {
+    throw chalk.red(m("Error_cannotGotoPage"));
+  }
   
   console.log(`Page1 ${page}`);
   
