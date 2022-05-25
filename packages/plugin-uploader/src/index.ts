@@ -15,7 +15,8 @@ interface BasicAuth {
 }
 
 const launchBrowser = (proxy: string | null): Promise<Browser> => {
-  const args = proxy ? [`--proxy-server=${proxy}`, `--no-sandbox`] : [`--no-sandbox`];
+  const noSandbox = `--no-sandbox`;
+  const args = proxy ? [`--proxy-server=${proxy}`, noSandbox] : [noSandbox];
   return puppeteer.launch({ args });
 };
 
@@ -37,8 +38,10 @@ const readyForUpload = async (
   }
 
   console.log(`Open ${loginUrl}`);
-  await page.goto(loginUrl);
-  
+  await page.goto(loginUrl, {
+    waitUntil: "domcontentloaded"
+  });
+
   try {
     await page.waitForSelector(".form-username-slash", { timeout: TIMEOUT_MS });
   } catch (e) {
@@ -59,21 +62,15 @@ const readyForUpload = async (
 
   const pluginUrl = `${baseUrl}/k/admin/system/plugin/`;
   console.log(`Navigate to ${pluginUrl}`);
-  try {
-    await page.goto(pluginUrl);
-  } catch (e) {
-    console.log(`Error_cannotOpenpluginPage`);
-    throw chalk.red("Error_cannotOpenpluginPage");
-  }
-  
-  console.log(`Page: ${page}`);
+  await page.goto(pluginUrl, {
+    waitUntil: "domcontentloaded"
+  });
 
   try {
     await page.waitForSelector("#page-admin-system-plugin-index-addplugin", {
       timeout: TIMEOUT_MS,
     });
   } catch (e) {
-    console.log(m("Error_adminPrivilege"));
     throw chalk.red(m("Error_adminPrivilege"));
   }
   return page;
