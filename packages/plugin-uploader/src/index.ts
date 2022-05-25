@@ -39,7 +39,7 @@ const readyForUpload = async (
 
   console.log(`Open ${loginUrl}`);
   await page.goto(loginUrl, {
-    waitUntil: "domcontentloaded"
+    waitUntil: "domcontentloaded",
   });
 
   try {
@@ -63,7 +63,7 @@ const readyForUpload = async (
   const pluginUrl = `${baseUrl}/k/admin/system/plugin/`;
   console.log(`Navigate to ${pluginUrl}`);
   await page.goto(pluginUrl, {
-    waitUntil: "domcontentloaded"
+    waitUntil: "domcontentloaded",
   });
 
   try {
