@@ -38,14 +38,19 @@ const readyForUpload = async (
   }
 
   console.log(`Open ${loginUrl}`);
-  await page.goto(loginUrl, {
-    waitUntil: "domcontentloaded",
-  });
-
+  try {
+    await page.goto(loginUrl, {
+      waitUntil: "domcontentloaded",
+    });
+  } catch (e) {
+    process.exitCode = 1;
+    throw chalk.red("Error_cannotOpenLoginPage");
+  }
+  
   try {
     await page.waitForSelector(".form-username-slash", { timeout: TIMEOUT_MS });
   } catch (e) {
-    process.exitCode = 1;
+    process.exitCode = 2;
     throw chalk.red(m("Error_cannotOpenLogin"));
   }
   console.log("Trying to log in...");
@@ -58,7 +63,7 @@ const readyForUpload = async (
       waitUntil: "domcontentloaded",
     });
   } catch (e) {
-    process.exitCode = 2;
+    process.exitCode = 3;
     throw chalk.red(m("Error_failedLogin"));
   }
 
@@ -73,7 +78,7 @@ const readyForUpload = async (
       timeout: TIMEOUT_MS,
     });
   } catch (e) {
-    process.exitCode = 3;
+    process.exitCode = 4;
     throw chalk.red(m("Error_adminPrivilege"));
   }
   return page;
@@ -90,6 +95,7 @@ const upload = async (
 
   const file = await page.$('.plupload > input[type="file"]');
   if (file == null) {
+    process.exitCode = 5;
     throw new Error('input[type="file"] is not found');
   }
   await file.uploadFile(pluginPath);
@@ -101,6 +107,7 @@ const upload = async (
     if (button) {
       button.click();
     } else {
+      process.exitCode = 6;
       throw new Error('button[name="ok"] is not found');
     }
   });
