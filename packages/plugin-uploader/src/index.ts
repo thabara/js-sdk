@@ -45,6 +45,7 @@ const readyForUpload = async (
   try {
     await page.waitForSelector(".form-username-slash", { timeout: TIMEOUT_MS });
   } catch (e) {
+    process.exitCode = 1;
     throw chalk.red(m("Error_cannotOpenLogin"));
   }
   console.log("Trying to log in...");
@@ -57,6 +58,7 @@ const readyForUpload = async (
       waitUntil: "domcontentloaded",
     });
   } catch (e) {
+    process.exitCode = 2;
     throw chalk.red(m("Error_failedLogin"));
   }
 
@@ -71,6 +73,7 @@ const readyForUpload = async (
       timeout: TIMEOUT_MS,
     });
   } catch (e) {
+    process.exitCode = 3;
     throw chalk.red(m("Error_adminPrivilege"));
   }
   return page;
