@@ -18,7 +18,7 @@ const launchBrowser = (proxy: string | null): Promise<Browser> => {
   const noSandbox = `--no-sandbox`;
   const noZygote = `--no-zygote`;
   const args = proxy ? [`--proxy-server=${proxy}`, noSandbox, noZygote]
-    : [noSandbox, noZygote];
+       : [noSandbox, noZygote];
   return puppeteer.launch({ args });
 };
 
