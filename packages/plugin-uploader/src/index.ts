@@ -17,7 +17,8 @@ interface BasicAuth {
 const launchBrowser = (proxy: string | null): Promise<Browser> => {
   const noSandbox = `--no-sandbox`;
   const noZygote = `--no-zygote`;
-  const args = proxy ? [`--proxy-server=${proxy}`, noSandbox, noZygote] : [noSandbox, noZygote];
+  const args = proxy ? [`--proxy-server=${proxy}`, noSandbox, noZygote] :
+  [noSandbox, noZygote];
   return puppeteer.launch({ args });
 };
 
@@ -47,7 +48,7 @@ const readyForUpload = async (
     process.exitCode = 1;
     throw chalk.red("Error_cannotOpenLoginPage");
   }
-  
+
   try {
     await page.waitForSelector(".form-username-slash", { timeout: TIMEOUT_MS });
   } catch (e) {
